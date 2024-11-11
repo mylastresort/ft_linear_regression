@@ -24,16 +24,20 @@ def main():
     x = input("Enter mileage: ")
     try:
         x = int(x)
+        if x < 0:
+            return print(f"{x} is not a valid mileage.")
         with open("model.lr", "r") as file:
             weight, bias = parse_file(file)
             model.set_parameters(weight, bias)
-            print(f"Model precision: mse={model.mse()}")
         y = model.predict(float(x))
-        if (y < 0):
-            return print(f"{x} is too big to estimate")
+        if y < 0:
+            return print(
+                f"{x} is too big to estimate. \
+                    The model predicted {y} which is not a real price. Not enough data."
+            )
         print(f"Estimated value for {x} is {int(y)}")
-    except:
-        print("Please enter a valid input. Input must be a integer only type.")
+    except Exception as exp:
+        print(f"Fatal: {exp}")
 
 
 if __name__ == "__main__":
