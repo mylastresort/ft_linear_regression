@@ -29,13 +29,17 @@ def main():
         with open("model.lr", "r") as file:
             weight, bias = parse_file(file)
             model.set_parameters(weight, bias)
-        y = model.predict(float(x))
+        y = int(model.predict(float(x)))
         if y < 0:
-            return print(
-                f"{x} is too big to estimate. \
-                    The model predicted {y} which is not a real price. Not enough data."
+            msg = f"{x} is too big to estimate.\n"
+            msg += (
+                f"The model predicted {y} which is not a real price. Not enough data.\n"
             )
-        print(f"Estimated value for {x} is {int(y)}")
+            msg += f"Please try with a smaller mileage.\n"
+            large_price = int(model.predict(-model.b / model.w))
+            msg += f"Note: the price for a max mileage is {large_price} according the data."
+            return print(msg)
+        print(f"Estimated value for {x} is {y}")
     except Exception as exp:
         print(f"Fatal: {exp}")
 
