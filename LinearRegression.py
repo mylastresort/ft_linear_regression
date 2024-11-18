@@ -25,7 +25,7 @@ class LinearRegression:
             self.w -= self.lr * _weight
             self.b -= self.lr * _bias
 
-    def mse(self, x: np.ndarray, y: np.ndarray):
+    def cost(self, x: np.ndarray, y: np.ndarray):
         y_pred = self.predict(x)
         n_samples = len(x)
-        return np.sum((y - y_pred) ** 2) / n_samples
+        return np.sum((y - y_pred) ** 2) / (n_samples * 2)

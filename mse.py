@@ -9,7 +9,7 @@ def main():
         weight, bias = parse_file(file)
         model.set_parameters(weight, bias)
         data = read_csv("data.csv")
-        mse = model.mse(data["km"], data["price"])
+        mse = model.cost(data["km"], data["price"])
         print(f"Model precision: mse = {mse}")
 
 
