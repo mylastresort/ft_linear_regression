@@ -20,8 +20,9 @@ class LinearRegression:
         n_samples = len(x)
         for _ in range(self.n):
             y_pred = self.predict(x)
-            _weight = (1 / n_samples) * np.dot(x, y_pred - y)
-            _bias = (1 / n_samples) * np.sum(y_pred - y)
+            func = y_pred - y
+            _weight = (1 / n_samples) * np.sum(x * func)
+            _bias = (1 / n_samples) * np.sum(func)    
             self.w -= self.lr * _weight
             self.b -= self.lr * _bias
 
